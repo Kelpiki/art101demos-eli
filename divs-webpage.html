@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Div Art Gallery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: radial-gradient(circle at center, #1a1a2e, #16213e, #0f3460);
+            background-size: 100% 100%;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated background particles */
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            animation: floatParticle 6s linear infinite;
+        }
+
+        @keyframes floatParticle {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        /* Create multiple particles */
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 8s; }
+        .particle:nth-child(2) { left: 20%; animation-delay: 1s; animation-duration: 6s; }
+        .particle:nth-child(3) { left: 30%; animation-delay: 2s; animation-duration: 7s; }
+        .particle:nth-child(4) { left: 40%; animation-delay: 0.5s; animation-duration: 9s; }
+        .particle:nth-child(5) { left: 50%; animation-delay: 1.5s; animation-duration: 5s; }
+        .particle:nth-child(6) { left: 60%; animation-delay: 3s; animation-duration: 8s; }
+        .particle:nth-child(7) { left: 70%; animation-delay: 0.8s; animation-duration: 6s; }
+        .particle:nth-child(8) { left: 80%; animation-delay: 2.5s; animation-duration: 7s; }
+        .particle:nth-child(9) { left: 90%; animation-delay: 1.2s; animation-duration: 9s; }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Animated geometric shapes */
+        .geometric-shape {
+            position: absolute;
+            border-radius: 50%;
+            animation: rotateShape 10s linear infinite;
+        }
+
+        .shape1 {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .shape2 {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #4ecdc4, #6ee7e0);
+            top: 20%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+
+        .shape3 {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(45deg, #45b7d1, #6bc5d8);
+            bottom: 20%;
+            left: 8%;
+            animation-delay: 4s;
+        }
+
+        .shape4 {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(45deg, #96ceb4, #a8d5c1);
+            bottom: 10%;
+            right: 5%;
+            animation-delay: 6s;
+        }
+
+        @keyframes rotateShape {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.2); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        .header {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            border-radius: 30px;
+            padding: 40px;
+            margin-bottom: 40px;
+            text-align: center;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .header h1 {
+            color: #fff;
+            font-size: 4em;
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            animation: glow 2s ease-in-out infinite alternate;
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px rgba(255, 255, 255, 0.5); }
+            to { text-shadow: 0 0 30px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.3); }
+        }
+
+        .header p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.4em;
+            position: relative;
+            z-index: 2;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .content-area {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            border-radius: 25px;
+            padding: 30px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            animation: cardFloat 6s ease-in-out infinite;
+        }
+
+        .card:nth-child(1) { animation-delay: 0s; }
+        .card:nth-child(2) { animation-delay: 1s; }
+        .card:nth-child(3) { animation-delay: 2s; }
+        .card:nth-child(4) { animation-delay: 3s; }
+
+        @keyframes cardFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(1deg); }
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .card:hover::before {
+            left: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .card h2 {
+            color: #fff;
+            margin-bottom: 20px;
+            font-size: 2em;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        .card p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Animated visual elements */
+        .visual-element {
+            position: absolute;
+            border-radius: 50%;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        .visual1 {
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255, 107, 107, 0.3), transparent);
+            top: 15%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .visual2 {
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(78, 205, 196, 0.3), transparent);
+            top: 25%;
+            right: 15%;
+            animation-delay: 1s;
+        }
+
+        .visual3 {
+            width: 180px;
+            height: 180px;
+            background: radial-gradient(circle, rgba(69, 183, 209, 0.3), transparent);
+            bottom: 25%;
+            left: 12%;
+            animation-delay: 2s;
+        }
+
+        .visual4 {
+            width: 160px;
+            height: 160px;
+            background: radial-gradient(circle, rgba(150, 206, 180, 0.3), transparent);
+            bottom: 15%;
+            right: 8%;
+            animation-delay: 3s;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.2); opacity: 0.6; }
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin: 50px 0;
+        }
+
+        .stat-box {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            animation: statBounce 3s ease-in-out infinite;
+        }
+
+        .stat-box:nth-child(1) { animation-delay: 0s; }
+        .stat-box:nth-child(2) { animation-delay: 0.5s; }
+        .stat-box:nth-child(3) { animation-delay: 1s; }
+        .stat-box:nth-child(4) { animation-delay: 1.5s; }
+
+        @keyframes statBounce {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .stat-box:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .stat-number {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            animation: numberGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes numberGlow {
+            from { text-shadow: 0 0 20px rgba(255, 255, 255, 0.5); }
+            to { text-shadow: 0 0 30px rgba(255, 255, 255, 0.8); }
+        }
+
+        .stat-label {
+            font-size: 1.1em;
+            opacity: 0.9;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .feature {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            animation: featureRotate 8s ease-in-out infinite;
+        }
+
+        .feature:nth-child(1) { 
+            border-color: rgba(255, 107, 107, 0.5);
+            animation-delay: 0s;
+        }
+        .feature:nth-child(2) { 
+            border-color: rgba(78, 205, 196, 0.5);
+            animation-delay: 2s;
+        }
+        .feature:nth-child(3) { 
+            border-color: rgba(69, 183, 209, 0.5);
+            animation-delay: 4s;
+        }
+        .feature:nth-child(4) { 
+            border-color: rgba(150, 206, 180, 0.5);
+            animation-delay: 6s;
+        }
+
+        @keyframes featureRotate {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(1deg) scale(1.02); }
+            50% { transform: rotate(0deg) scale(1.05); }
+            75% { transform: rotate(-1deg) scale(1.02); }
+        }
+
+        .feature:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            display: block;
+            animation: iconSpin 4s linear infinite;
+        }
+
+        @keyframes iconSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .feature h4 {
+            color: #fff;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .footer {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(26, 26, 46, 0.9));
+            color: white;
+            padding: 40px;
+            border-radius: 25px;
+            text-align: center;
+            margin-top: 50px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            animation: footerShimmer 4s ease-in-out infinite;
+        }
+
+        @keyframes footerShimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-section h4 {
+            color: #4ecdc4;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            text-shadow: 0 0 10px rgba(78, 205, 196, 0.5);
+        }
+
+        .footer-section p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1em;
+            line-height: 1.6;
+        }
+
+        .floating-div {
+            position: fixed;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            animation: float 4s ease-in-out infinite;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .floating-div:nth-child(1) {
+            top: 15%;
+            right: 5%;
+            animation-delay: 0s;
+        }
+
+        .floating-div:nth-child(2) {
+            top: 65%;
+            right: 8%;
+            animation-delay: 1.5s;
+        }
+
+        .floating-div:nth-child(3) {
+            top: 40%;
+            right: 2%;
+            animation-delay: 3s;
+        }
+
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(0px) rotate(0deg); 
+            }
+            25% { 
+                transform: translateY(-15px) rotate(5deg); 
+            }
+            50% { 
+                transform: translateY(-25px) rotate(0deg); 
+            }
+            75% { 
+                transform: translateY(-15px) rotate(-5deg); 
+            }
+        }
+
+        .floating-div:hover {
+            transform: scale(1.3) rotate(360deg);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.2));
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html"></a>
+    <!-- Animated background particles -->
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+
+    <!-- Animated geometric shapes -->
+    <div class="geometric-shape shape1"></div>
+    <div class="geometric-shape shape2"></div>
+    <div class="geometric-shape shape3"></div>
+    <div class="geometric-shape shape4"></div>
+
+    <!-- Animated visual elements -->
+    <div class="visual-element visual1"></div>
+    <div class="visual-element visual2"></div>
+    <div class="visual-element visual3"></div>
+    <div class="visual-element visual4"></div>
+
+    <div class="container">
+        <div class="header">
+            <h1>✨ Animated Div Art Gallery ✨</h1>
+            <p>A mesmerizing showcase of animated div elements and visual effects</p>
+        </div>
+
+        <div class="main-content">
+            <div class="content-area">
+                <div class="card">
+                    <h2>🌟 Living Div Universe</h2>
+                    <p>Watch as divs come to life with continuous animations! Each element pulses, rotates, and flows in harmony. This is not just a webpage - it's a living, breathing digital canvas where every div tells a story through motion.</p>
+                    <p>Experience the magic of CSS animations as geometric shapes dance across the screen, particles float like digital snow, and cards breathe with gentle movements.</p>
+                </div>
+
+                <div class="card">
+                    <h2>🎭 Visual Symphony</h2>
+                    <p>This animated masterpiece features:</p>
+                    <ul style="color: rgba(255, 255, 255, 0.8); line-height: 1.8; margin-left: 20px;">
+                        <li>Floating particles and geometric shapes</li>
+                        <li>Rotating and pulsing animations</li>
+                        <li>Glowing text effects and shimmering backgrounds</li>
+                        <li>Interactive hover transformations</li>
+                        <li>Layered visual depth with backdrop filters</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h2>🎨 Digital Artistry</h2>
+                    <p>Every div is a brushstroke in this digital painting. The combination of gradients, shadows, and animations creates a mesmerizing visual experience that evolves continuously.</p>
+                    <p>Watch as the background shifts, elements rotate, and the entire composition flows like a living piece of art.</p>
+                </div>
+
+                <div class="card">
+                    <h2>🚀 Interactive Experience</h2>
+                    <p>Hover over elements to see them transform! Click and interact with the floating divs to trigger special effects. This is more than a webpage - it's an interactive digital art installation.</p>
+                    <p>Each interaction reveals new layers of animation and visual delight.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-box">
+                <div class="stat-number">30+</div>
+                <div class="stat-label">Animated Divs</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">15+</div>
+                <div class="stat-label">Animations</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">∞</div>
+                <div class="stat-label">Visual Effects</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Pure CSS Magic</div>
+            </div>
+        </div>
+
+        <div class="feature-grid">
+            <div class="feature">
+                <span class="feature-icon">🎭</span>
+                <h4>Living Art</h4>
+                <p>Continuously animated visual elements</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">✨</span>
+                <h4>Particle Effects</h4>
+                <p>Floating particles and geometric shapes</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">🌈</span>
+                <h4>Dynamic Colors</h4>
+                <p>Glowing gradients and shimmer effects</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">🎪</span>
+                <h4>Interactive Magic</h4>
+                <p>Hover transformations and click effects</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Digital Art Gallery</h4>
+                    <p>An immersive animated experience built entirely with divs, showcasing the artistic potential of web technologies.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Animation Techniques</h4>
+                    <p>CSS Keyframes, Transforms, Gradients, Backdrop Filters, and Particle Systems create this living artwork.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Interactive Experience</h4>
+                    <p>Every div is animated, every element responds to interaction, creating a truly dynamic digital canvas.</p>
+                </div>
+            </div>
+            <p style="color: rgba(255, 255, 255, 0.6); font-size: 0.9em; margin-top: 30px; position: relative; z-index: 2;">
+                ✨ Made with pure CSS magic and animated divs ✨
+            </p>
+        </div>
+    </div>
+
+    <!-- Floating decorative divs -->
+    <div class="floating-div">🎨</div>
+    <div class="floating-div">✨</div>
+    <div class="floating-div">🚀</div>
+
+    <script>
+        // Add some interactive functionality
+        document.querySelectorAll('.card, .widget, .feature').forEach(element => {
+            element.addEventListener('click', function() {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+        });
+
+        // Animate stats on scroll
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'pulse 0.6s ease-in-out';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.stat-box').forEach(stat => {
+            observer.observe(stat);
+        });
+
+        // Add pulse animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.05); }
+                100% { transform: scale(1); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

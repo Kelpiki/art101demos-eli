@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cat Page</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        .cat {
+            font-size: 8em;
+            margin: 20px 0;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-20px);
+            }
+            60% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .cat-info {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 5px solid #667eea;
+        }
+
+        .cat-info h3 {
+            color: #667eea;
+            margin-top: 0;
+        }
+
+        .cat-facts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .fact {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #bbdefb;
+        }
+
+        .fact h4 {
+            color: #1976d2;
+            margin: 0 0 10px 0;
+        }
+
+        .fact p {
+            margin: 0;
+            color: #424242;
+            font-size: 0.9em;
+        }
+
+        .button {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            margin: 10px;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .footer {
+            margin-top: 30px;
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🐱 Welcome to My Cat Page! 🐱</h1>
+        
+        <div class="cat">😸</div>
+        
+        <div class="cat-info">
+            <h3>Meet Whiskers!</h3>
+            <p>This is my virtual cat companion. Whiskers loves to play, purr, and bring joy to everyone who visits this page!</p>
+        </div>
+
+        <div class="cat-facts">
+            <div class="fact">
+                <h4>🐾 Fun Fact #1</h4>
+                <p>Cats spend 70% of their lives sleeping!</p>
+            </div>
+            <div class="fact">
+                <h4>🎾 Fun Fact #2</h4>
+                <p>A group of cats is called a "clowder"</p>
+            </div>
+            <div class="fact">
+                <h4>👂 Fun Fact #3</h4>
+                <p>Cats can rotate their ears 180 degrees!</p>
+            </div>
+            <div class="fact">
+                <h4>💓 Fun Fact #4</h4>
+                <p>A cat's heart beats twice as fast as a human's</p>
+            </div>
+        </div>
+
+        <button class="button" onclick="petCat()">Pet the Cat! 🐾</button>
+        <button class="button" onclick="feedCat()">Feed the Cat! 🍽️</button>
+        <button class="button" onclick="playWithCat()">Play with Cat! 🎾</button>
+
+        <div class="footer">
+            <p>Made with ❤️ for cat lovers everywhere</p>
+        </div>
+    </div>
+
+    <script>
+        function petCat() {
+            const cat = document.querySelector('.cat');
+            cat.textContent = '😺';
+            cat.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                cat.textContent = '😸';
+                cat.style.transform = 'scale(1)';
+            }, 500);
+            alert('Purr purr! The cat is happy! 🐱');
+        }
+
+        function feedCat() {
+            const cat = document.querySelector('.cat');
+            cat.textContent = '😋';
+            setTimeout(() => {
+                cat.textContent = '😸';
+            }, 1000);
+            alert('Nom nom! The cat is eating happily! 🍽️');
+        }
+
+        function playWithCat() {
+            const cat = document.querySelector('.cat');
+            cat.textContent = '😹';
+            cat.style.animation = 'none';
+            setTimeout(() => {
+                cat.style.animation = 'bounce 2s infinite';
+                cat.textContent = '😸';
+            }, 2000);
+            alert('The cat is having so much fun playing! 🎾');
+        }
+
+        // Add some random cat sounds (visual feedback)
+        setInterval(() => {
+            const cat = document.querySelector('.cat');
+            if (Math.random() < 0.1) { // 10% chance every interval
+                const sounds = ['😸', '😺', '😻', '🙀'];
+                const randomSound = sounds[Math.floor(Math.random() * sounds.length)];
+                const original = cat.textContent;
+                cat.textContent = randomSound;
+                setTimeout(() => {
+                    cat.textContent = original;
+                }, 1000);
+            }
+        }, 3000);
+    </script>
+</body>
+</html>
