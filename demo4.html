@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Falling Circles</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      height: 100%;
+      background: radial-gradient(circle at center, #111 0%, #000 100%);
+    }
+
+    .circle {
+      position: absolute;
+      top: -150px;
+      opacity: 0.8;
+      pointer-events: none;
+      animation-name: fall;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-150px);
+        opacity: 0.9;
+      }
+      100% {
+        transform: translateY(110vh);
+        opacity: 0.2;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Circles will be generated with JavaScript -->
+
+  <script>
+    const NUM_CIRCLES = 20; // how many falling circles
+    const container = document.body;
+
+    for (let i = 0; i < NUM_CIRCLES; i++) {
+      const img = document.createElement('img');
+      img.src = '500px-Circle_-_black_simple.svg.png'; // your image
+      img.classList.add('circle');
+
+      // Randomize size between 30px and 100px
+      const size = Math.floor(Math.random() * 70) + 30;
+      img.style.width = `${size}px`;
+
+      // Random X position across the screen
+      const left = Math.random() * window.innerWidth;
+      img.style.left = `${left}px`;
+
+      // Random animation duration between 8s and 20s
+      const duration = Math.random() * 12 + 8;
+      img.style.animationDuration = `${duration}s`;
+
+      // Random delay so they don't all fall together
+      const delay = Math.random() * 20;
+      img.style.animationDelay = `${delay}s`;
+
+      container.appendChild(img);
+    }
+  </script>
+</body>
+</html>
