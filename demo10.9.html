@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cursor Movement Visualizer</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      text-align: center;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      background-color: green;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    canvas {
+      border: 1px solid #ccc;
+      display: block;
+      margin: 20px auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>Cursor Movement Visualizer</h1>
+  <button id="toggleBtn">Start Tracking</button>
+  <canvas id="chartCanvas" width="1000" height="400"></canvas>
+
+  <script>
+    const data = [];
+    let isTracking = false;
+    let startTime = null;
+    let lastPos = { x: 0, y: 0, t: 0 };
+
+    const button = document.getElementById("toggleBtn");
+    const canvas = document.getElementById("chartCanvas");
+    const ctx = canvas.getContext("2d");
+
+    button.addEventListener("click", () => {
+      isTracking = !isTracking;
+      button.textContent = isTracking ? "Stop Tracking" : "Start Tracking";
+      button.style.backgroundColor = isTracking ? "red" : "green";
+      if (isTracking) {
+        data.length = 0;
+        startTime = performance.now();
+        lastPos = { x: 0, y: 0, t: startTime };
+      }
+    });
+
+    window.addEventListener("mousemove", (e) => {
+      if (!isTracking) return;
+      const now = performance.now();
+      const time = (now - startTime) / 1000;
+      const dx = e.clientX - lastPos.x;
+      const dy = e.clientY - lastPos.y;
+      const dt = (now - lastPos.t) / 1000 || 0.001;
+      const velocityX = dx / dt;
+      const velocityY = dy / dt;
+      const speed = Math.sqrt(velocityX ** 2 + velocityY ** 2);
+
+      data.push({ time, x: e.clientX, y: e.clientY, speed });
+      lastPos = { x: e.clientX, y: e.clientY, t: now };
+      drawChart();
+    });
+
+    function drawChart() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (data.length < 2) return;
+
+      ctx.beginPath();
+      ctx.moveTo(0, canvas.height - data[0].speed / 10);
+      for (let i = 1; i < data.length; i++) {
+        const x = (i / data.length) * canvas.width;
+        const y = canvas.height - data[i].speed / 10;
+        ctx.lineTo(x, y);
+      }
+      ctx.strokeStyle = "orange";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      ctx.fillStyle = "black";
+      ctx.font = "14px Arial";
+      ctx.fillText("Speed (px/s)", 10, 20);
+    }
+  </script>
+</body>
+</html>

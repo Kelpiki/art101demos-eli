@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health Animal Bites Dataset Visualization</title>
+  <script src="https://cdn.plot.ly/plotly-2.26.0.min.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 20px;
+      background: #f9fafb;
+      color: #222;
+      text-align: center;
+    }
+    h1 { margin-bottom: 10px; }
+    #chart {
+      width: 95%;
+      height: 600px;
+      margin: auto;
+      border-radius: 10px;
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    input {
+      margin: 10px;
+      padding: 6px 10px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🐾 Health Animal Bites Dataset</h1>
+  <p>Hover to view values • Drag to zoom • Scroll to zoom out</p>
+
+  <input type="file" id="fileInput" accept=".csv" />
+  <div id="chart"></div>
+
+  <script>
+    document.getElementById('fileInput').addEventListener('change', handleFile);
+
+    async function handleFile(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const text = await file.text();
+      const rows = text.split(/\\r?\\n/).filter(r => r.trim() !== '');
+      const headers = rows[0].split(',');
+
+      // Convert CSV to columns
+      const columns = {};
+      headers.forEach(h => columns[h] = []);
+
+      for (let i = 1; i < rows.length; i++) {
+        const values = rows[i].split(',');
+        headers.forEach((h, j) => {
+          const val = values[j];
+          columns[h].push(isNaN(val) ? val : parseFloat(val));
+        });
+      }
+
+      // Pick two numeric columns automatically
+      const numericCols = headers.filter(h =>
+        columns[h].some(v => typeof v === 'number' && !isNaN(v))
+      );
+
+      if (numericCols.length < 2) {
+        alert('Need at least two numeric columns to plot!');
+        return;
+      }
+
+      const xCol = numericCols[0];
+      const yCol = numericCols[1];
+
+      const trace = {
+        x: columns[xCol],
+        y: columns[yCol],
+        mode: 'markers',
+        type: 'scatter',
+        marker: { color: '#ff7f0e', size: 8 },
+        hovertemplate: `${xCol}: %{x}<br>${yCol}: %{y}<extra></extra>`
+      };
+
+      const layout = {
+        title: `Scatter Plot: ${xCol} vs ${yCol}`,
+        xaxis: { title: xCol },
+        yaxis: { title: yCol },
+        hovermode: 'closest',
+        plot_bgcolor: '#fefefe',
+        paper_bgcolor: '#fefefe'
+      };
+
+      Plotly.newPlot('chart', [trace], layout, {responsive: true});
+    }
+  </script>
+
+</body>
+</html>
