@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Next Area</title>
+  <style>
+    body {
+      background: #000;
+      color: #fff;
+      font-family: sans-serif;
+      text-align: center;
+      padding-top: 40vh;
+      opacity: 1;
+      transition: opacity 2s ease;
+    }
+
+    body.fade-out {
+      opacity: 0;
+    }
+  </style>
+  <script>
+    window.onload = () => {
+      setTimeout(() => {
+        document.body.classList.add('fade-out');
+        setTimeout(() => {
+          window.location.href = 'https://newart.city/show/blender-projects-space-1';
+        }, 2000); // matches the fade duration
+      }, 2000); // wait before fade begins (optional)
+    };
+  </script>
+</head>
+<body>
+  <h1>You’ve entered the next area...</h1>
+</body>
+</html>
